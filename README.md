@@ -19,10 +19,10 @@ H2 Console: http://localhost:8080/h2-console (JDBC URL: `jdbc:h2:mem:springbooks
 Swagger UI: http://localhost:8080/docs
 
 ## Auth
-Security is enabled. For development and tests the app accepts any Bearer token (a simple mock JwtDecoder is used). Example:
+Security is enabled. For development and tests the app accepts only a single Bearer token for now (a simple mock JwtDecoder is used). Example:
 
 ```
-curl -H "Authorization: Bearer test-token" http://localhost:8080/api/books
+curl -H "Authorization: Bearer valid-token" http://localhost:8080/api/books
 ```
 
 ## Endpoints (examples)
