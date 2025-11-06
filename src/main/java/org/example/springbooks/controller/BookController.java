@@ -52,8 +52,8 @@ public class BookController {
     })
     @GetMapping("/books")
     public ResponseEntity<Page<Book>> list(
-            @Parameter(description = "Page number (0-based)", example = "0") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "Page size", example = "10") @RequestParam(defaultValue = "10") int size
+            @Parameter(description = "Page number (0-based)", example = "0") @RequestParam(name = "page", defaultValue = "0") int page,
+            @Parameter(description = "Page size", example = "10") @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(bookServiceImpl.list(PageRequest.of(page, size)));
     }
@@ -64,7 +64,7 @@ public class BookController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @GetMapping("/books/{id}")
-    public ResponseEntity<Book> get(@Parameter(description = "Book id", required = true) @PathVariable Long id) {
+    public ResponseEntity<Book> get(@Parameter(description = "Book id", required = true) @PathVariable("id") Long id) {
         return ResponseEntity.ok(bookServiceImpl.get(id));
     }
 
@@ -79,7 +79,7 @@ public class BookController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @PutMapping("/books/{id}")
-    public ResponseEntity<Book> update(@Parameter(description = "Book id", required = true) @PathVariable Long id,
+    public ResponseEntity<Book> update(@Parameter(description = "Book id", required = true) @PathVariable("id") Long id,
                                        @Valid @RequestBody Book b) {
         return ResponseEntity.ok(bookServiceImpl.update(id, b));
     }
@@ -90,19 +90,19 @@ public class BookController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @DeleteMapping("/books/{id}")
-    public ResponseEntity<Void> delete(@Parameter(description = "Book id", required = true) @PathVariable Long id) {
+    public ResponseEntity<Void> delete(@Parameter(description = "Book id", required = true) @PathVariable("id") Long id) {
         bookServiceImpl.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/borrow/{bookId}/member/{memberId}")
-    public ResponseEntity<String> borrow(@PathVariable Long bookId, @PathVariable Long memberId) {
+    public ResponseEntity<String> borrow(@PathVariable Long bookId, @PathVariable("memberId") Long memberId) {
         bookServiceImpl.borrow(bookId, memberId);
         return ResponseEntity.ok("Book borrowed");
     }
 
     @PostMapping("/return/{bookId}")
-    public ResponseEntity<String> returnBook(@PathVariable Long bookId) {
+    public ResponseEntity<String> returnBook(@PathVariable("bookId") Long bookId) {
         bookServiceImpl.returnBook(bookId);
         return ResponseEntity.ok("Book returned");
     }

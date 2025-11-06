@@ -48,8 +48,8 @@ public class MemberController {
     })
     @GetMapping
     public ResponseEntity<Page<Member>> list(
-            @Parameter(description = "Page index (0-based)") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "Page size") @RequestParam(defaultValue = "10") int size) {
+            @Parameter(description = "Page index (0-based)") @RequestParam(name = "page", defaultValue = "0") int page,
+            @Parameter(description = "Page size") @RequestParam(name = "size", defaultValue = "10") int size) {
         return ResponseEntity.ok(memberServiceImpl.list(PageRequest.of(page, size)));
     }
 
@@ -60,7 +60,7 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "Member not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Member> get(@Parameter(description = "Member id") @PathVariable Long id) {
+    public ResponseEntity<Member> get(@Parameter(description = "Member id") @PathVariable("id") Long id) {
         return ResponseEntity.ok(memberServiceImpl.get(id));
     }
 
@@ -71,7 +71,7 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "Member not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Member> update(@Parameter(description = "Member id") @PathVariable Long id, @Valid @RequestBody Member m) {
-        return ResponseEntity.ok(memberServiceImpl.update(id, m));
+    public ResponseEntity<Member> update(@Parameter(description = "Member id") @PathVariable("id") Long id, @Valid @RequestBody Member member) {
+        return ResponseEntity.ok(memberServiceImpl.update(id, member));
     }
 }
