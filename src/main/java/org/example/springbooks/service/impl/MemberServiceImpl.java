@@ -17,12 +17,12 @@ public class MemberServiceImpl {
         this.memberRepository = memberRepository;
     }
 
-    public Member create(Member m) {
-        return memberRepository.save(m);
+    public Member create(Member member) {
+        return memberRepository.save(member);
     }
 
-    public Page<Member> list(Pageable p) {
-        return memberRepository.findAll(p);
+    public Page<Member> list(Pageable pageable) {
+        return memberRepository.findAll(pageable);
     }
 
     public Member get(Long id) {
@@ -30,9 +30,9 @@ public class MemberServiceImpl {
     }
 
     public Member update(Long id, Member updated) {
-        Member m = get(id);
-        m.setName(updated.getName());
-        m.setEmail(updated.getEmail());
-        return memberRepository.save(m);
+        Member member = get(id);
+        member.setName(updated.getName());
+        member.setEmail(updated.getEmail());
+        return memberRepository.save(member);
     }
 }
